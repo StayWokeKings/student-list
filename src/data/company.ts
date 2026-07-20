@@ -1,0 +1,20 @@
+export const company = {
+  name: 'Meridian Property Management',
+  shortName: 'Meridian',
+  tagline: 'Property management that puts people first.',
+  phone: '(555) 214-7890',
+  emergencyPhone: '(555) 214-7899',
+  email: 'info@meridianpm.example',
+  leasingEmail: 'leasing@meridianpm.example',
+  address: '410 Commerce St, Suite 200, Rosedale, TX 75001',
+  hours: 'Mon–Fri: 9:00am–6:00pm · Sat: 10:00am–2:00pm',
+  yearFounded: 2009,
+  unitsManaged: 1200,
+  ownersServed: 340,
+  occupancyRate: 97,
+  social: {
+    facebook: 'https://facebook.com',
+    instagram: 'https://instagram.com',
+    linkedin: 'https://linkedin.com',
+  },
+}
