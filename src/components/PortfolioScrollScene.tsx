@@ -20,14 +20,28 @@ const slots: { x: number; y: number }[] = [
 
 const scene = properties.slice(0, slots.length)
 
+// Isometric house geometry, precomputed for a 30deg projection (shared by every tile — only fill colors vary).
+const RIGHT_WALL = '50,50 62.99,57.5 62.99,39.5 50,32'
+const LEFT_WALL = '50,50 37.01,57.5 37.01,39.5 50,32'
+const ROOF_RIGHT = '50,32 62.99,39.5 50,16'
+const ROOF_LEFT = '50,32 37.01,39.5 50,16'
+const DOOR = '57.15,54.13 61.04,56.38 61.04,46.48 57.15,44.23'
+const WINDOW = '47.4,51.5 43.51,53.75 43.51,46.55 47.4,44.3'
+const YARD = '50,56 72.08,68.75 50,81.5 27.92,68.75'
+
 function PropertyPhoto({ property }: { property: Property }) {
-  const sky = `hsl(${property.hue} 42% 55%)`
-  const skyDark = `hsl(${property.hue} 38% 28%)`
-  const ground = `hsl(${property.hue + 15} 30% 20%)`
-  const roof = `hsl(${property.hue + 10} 45% 26%)`
-  const wall = `hsl(${property.hue} 20% 93%)`
-  const trim = `hsl(${property.hue + 10} 38% 22%)`
+  const hue = property.hue
+  const sky = `hsl(${hue} 42% 58%)`
+  const skyDark = `hsl(${hue} 36% 30%)`
+  const yard = `hsl(${hue + 50} 22% 24%)`
+  const wallLit = `hsl(${hue} 12% 90%)`
+  const wallShade = `hsl(${hue} 16% 68%)`
+  const roofLit = `hsl(${hue + 12} 45% 34%)`
+  const roofShade = `hsl(${hue + 12} 42% 20%)`
+  const door = `hsl(${hue + 12} 35% 18%)`
+  const glass = `hsl(${hue} 30% 85%)`
   const gradientId = `sky-${property.id}`
+  const shadowId = `shadow-${property.id}`
 
   return (
     <div className="relative h-full w-full overflow-hidden rounded-2xl shadow-xl ring-1 ring-white/10">
@@ -37,16 +51,23 @@ function PropertyPhoto({ property }: { property: Property }) {
             <stop offset="0%" stopColor={sky} />
             <stop offset="100%" stopColor={skyDark} />
           </linearGradient>
+          <filter id={shadowId} x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="1.6" />
+          </filter>
         </defs>
         <rect width="100" height="75" fill={`url(#${gradientId})`} />
         <circle cx="82" cy="14" r="7" fill="white" opacity="0.15" />
         <circle cx="16" cy="10" r="4" fill="white" opacity="0.12" />
-        <rect x="0" y="56" width="100" height="19" fill={ground} />
-        <polygon points="30,38 50,20 70,38" fill={roof} />
-        <rect x="34" y="38" width="32" height="20" fill={wall} />
-        <rect x="46" y="48" width="8" height="10" fill={trim} />
-        <rect x="38" y="42" width="6" height="6" fill={trim} opacity="0.6" />
-        <rect x="56" y="42" width="6" height="6" fill={trim} opacity="0.6" />
+
+        <polygon points={YARD} fill={yard} />
+        <ellipse cx="50" cy="59" rx="15" ry="4" fill="black" opacity="0.28" filter={`url(#${shadowId})`} />
+
+        <polygon points={LEFT_WALL} fill={wallShade} />
+        <polygon points={RIGHT_WALL} fill={wallLit} />
+        <polygon points={ROOF_LEFT} fill={roofShade} />
+        <polygon points={ROOF_RIGHT} fill={roofLit} />
+        <polygon points={DOOR} fill={door} />
+        <polygon points={WINDOW} fill={glass} opacity="0.85" />
       </svg>
       <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent px-1.5 py-1 sm:p-3">
         <p className="truncate text-[8px] font-semibold leading-tight text-white sm:text-xs">{property.name}</p>
