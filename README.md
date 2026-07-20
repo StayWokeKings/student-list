@@ -1,106 +1,39 @@
-# ERC-721 Class
+# Meridian Property Management — Website
 
-Event website (NEW YORK, May 2018): https://www.eventbrite.com/e/multi-disciplinary-hands-on-blockchain-workshop-geared-for-women-tickets-43206067511
+A responsive marketing website for a residential & commercial property management company, built as static HTML/CSS/JS (no build step, no dependencies).
 
-Event website (HONG KONG, July 2018): https://www.meetup.com/TokenJam/events/253126249/
+## Pages
 
-Event website (PHILLY, Oct 2018): https://www.eventbrite.com/e/chain-76-philadelphia-pharmaceuticals-supply-chain-and-blockchain-tickets-48864858106
+- `index.html` — Home: hero, search, featured listings, services overview, stats, testimonials
+- `properties.html` — Property listings with a For Rent / For Sale filter
+- `services.html` — Service details, onboarding steps, FAQ
+- `about.html` — Company story, values, team, timeline
+- `contact.html` — Contact form, office info, map embed
 
-Event website (MIAMI, December 2021): https://www.dcentralcon.com
+## Structure
 
-## Teachers
+```
+css/style.css   shared stylesheet (design tokens, layout, components)
+js/main.js      nav toggle, property filter, FAQ accordion, contact form handling
+*.html          pages (each includes an inline SVG icon sprite, no external icon library)
+```
 
-* William Entriken -- https://phor.net
-* Chen Cheng
-* Scarlet Zhou
+## Customizing
 
-## Attending students, assistants, teacher-track students
+This ships with placeholder branding ("Meridian Property Management") and sample listings so it can be previewed immediately. To make it a real site:
 
-**New York, 2018-05-10**
+1. **Branding** — replace "Meridian Property Management" in the `<title>`, `.brand` markup, and footer across all pages; swap the favicon/logo mark in the header.
+2. **Contact info** — update phone/email/address in the topbar, footer, and `contact.html` (including the Google Maps embed URL).
+3. **Listings** — replace the sample `.property-card` entries in `index.html` and `properties.html` with real properties. Each card needs a status of `rent` or `sale` set via `data-property-status` for the filter to work.
+4. **Photos** — property cards currently use flat SVG illustrations (`pm-1`…`pm-6` gradient classes) instead of photography, since this build has no external image source. Swap the `.property-media` contents for `<img>` tags once you have real photos.
+5. **Contact form** — the form in `contact.html` is front-end only (`js/main.js`); wire the `#contact-form` submit handler to your backend or a form service (e.g. Formspree) to actually deliver messages.
 
-* Robert Schwentker -- https://dlt.education
-* Mariya Mego Vela -- Galvanize Web Immersive
-* Christina Maldonado -- Student
-* Chloe Cheau -- Galvanize Data Science Immersive
-* Andrea Fabry -- Galvanize Data Science Immersive
-* Christina Lynn -- Student
-* Sara Morsi - Application Development Consultant at Slalom
-* Julianne Sloane -- Student
-* Li Ouyang - Student
-* Melina (MEL) Gonzalez -- Android developer with Gesture
-* Paul Y. Morris - Real Estate Blockchain Enthusiast
-* Ann Odell
-* Cecelia Auerswald - Student
-* Li Ouyang - Student
-* Nicole Swank
-* Lily Chang
-* Lisa LoCascio Lopez
-* Marcie Cheung - Ecommerce
-* Melis Bilgutay
-* Elen Awalom
-* Lisa Douglas
-* Katie Sievers - Student
-* Melissa Powell
-* Gage Valentino
+## Running locally
 
-**Philadelplhia, 2018-06-20**
+No build tooling required — open `index.html` directly in a browser, or serve the folder:
 
-* Su Wang
-* Shi Yue
-* Koba K
-* Jack
-* Uncle BillisHere
-* Drew Entriken - Software Developer at Liberty Mutual
-* Mark Nichols
+```
+python3 -m http.server 8000
+```
 
-**Hong Kong, 2018-07-27**
-
-* Angie Lau -- Narramur, Chief Narrator www.narramur.com
-* Hoi Tak Leung - Counsel, Ashurst HK (https://www.linkedin.com/in/hoitakleung/)
-* Eunice - ecommerce
-* Jens Wernborg -- REC
-* Rebecca Lo -- Community Lead, Passport http://pspt.io
-* kentydotcom - drugDealer
-* arthur
-* Bing Lin
-* Ines
-* Jonathan Lee - Higgs Capital
-* Sally
-* Lenka
-* Eric Kwan
-* Monica
-* Rachel
-* Cecilia
-* Hope
-* Amrit Sethi
-* Rho Block
-* Joseph Kwong
-
-**Philadelphia, 2018-10-12**
-* Andrew Long -- Principal at aplusldevelopment.com
-* Evan Tini
-* Kelly Randis
-* Anantha Kondalraj
-* Lisa LoCascio Lopez
-* Rishabh Agarwal
-* Stacy Wang
-* Devon Yarbrough
-* John Sterlacci
-* Franklin Maggay
-
-**Miami, 2021-12-01**
-* AJ Jolivette
-* William Penney III
-* Maciej Frik
-* Scott Andersen
-* Jorge Lafosse
-* Courtney Francis
-* Raja Mehtab
-* Austin Hulak
-* Giotto Troia
-* Liza Lopez
-* Tracy Williams
-* RJon Robins
-* Kevin Schwartz - Real Estate Blockchain Developer
-* Shawn Hutchens 
-* ADD YOUR NAME ABOVE HERE
+Then visit `http://localhost:8000`.
