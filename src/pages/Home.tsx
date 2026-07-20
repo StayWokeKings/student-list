@@ -8,9 +8,8 @@ import {
   Star,
   Users,
 } from 'lucide-react'
-import { properties } from '../data/properties'
 import { company } from '../data/company'
-import PropertyCard from '../components/PropertyCard'
+import PortfolioScrollScene from '../components/PortfolioScrollScene'
 
 const stats = [
   { label: 'Units under management', value: `${company.unitsManaged.toLocaleString()}+` },
@@ -80,8 +79,6 @@ const testimonials = [
 ]
 
 export default function Home() {
-  const featured = properties.filter((p) => p.featured)
-
   return (
     <div>
       <section className="relative overflow-hidden bg-brand-950">
@@ -133,23 +130,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <h2 className="text-2xl font-semibold text-brand-950 sm:text-3xl">Featured Rentals</h2>
-            <p className="mt-2 text-brand-950/60">A few of our currently available homes.</p>
-          </div>
-          <Link to="/properties" className="flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:text-brand-800">
-            View all properties
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {featured.map((property) => (
-            <PropertyCard key={property.id} property={property} />
-          ))}
-        </div>
-      </section>
+      <PortfolioScrollScene />
 
       <section className="bg-sand-50 py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
